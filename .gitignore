@@ -1,0 +1,7 @@
+# macOS
+.DS_Store
+
+# Local brew test-bot artifacts
+*.bottle.*.tar.gz
+*.bottle.json
+brew-test-bot.*
