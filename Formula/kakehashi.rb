@@ -36,6 +36,10 @@ class Kakehashi < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/kakehashi --version")
+    assert_equal "kakehashi #{version}", shell_output("#{bin}/kakehashi --version").strip
+
+    require "json"
+    schema = shell_output("#{bin}/kakehashi config schema")
+    JSON.parse(schema) # fails if the binary prints non-JSON garbage
   end
 end
