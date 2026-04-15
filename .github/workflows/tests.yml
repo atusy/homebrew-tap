@@ -5,6 +5,13 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-bot:
     strategy:
@@ -17,7 +24,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: Homebrew/actions/setup-homebrew@master
+      # Pinned to a commit SHA for supply-chain safety; bump deliberately.
+      - uses: Homebrew/actions/setup-homebrew@59e6b20d96df1a3c9ccb0aa402676e01a4cc6ff3
 
       - name: Run brew test-bot (formula tests only)
         run: brew test-bot --only-formulae
