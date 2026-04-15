@@ -1,6 +1,7 @@
 class Kakehashi < Formula
   desc "LSP server using Tree-sitter for language-aware features"
   homepage "https://github.com/atusy/kakehashi"
+  version "0.5.0"
   license "MIT"
 
   on_macos do
