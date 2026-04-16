@@ -2,13 +2,12 @@
 
 Personal Homebrew tap for [atusy](https://github.com/atusy)'s projects.
 
-## Installation
+## Usage
+
+### Install `kakehashi`, LSP server using Tree-sitter for language-aware features.
+
+https://github.com/atusy/kakehashi
 
 ```sh
 brew install atusy/tap/kakehashi
 ```
-
-## Formulae
-
-- **kakehashi** — LSP server using Tree-sitter for language-aware features.
-  See [atusy/kakehashi](https://github.com/atusy/kakehashi).
