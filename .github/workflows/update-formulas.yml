@@ -1,0 +1,88 @@
+name: Update Formulas
+
+on:
+  # Daily schedule is intentionally disabled until the first manual dispatch
+  # confirms the workflow is wired up correctly (PAT valid, auto-merge gated
+  # on the test-bot matrix, etc.). Enabled in a follow-up one-line commit.
+  # schedule:
+  #   - cron: '17 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Compute changes without creating a PR'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read            # writes go through UPDATE_FORMULAS_TOKEN (PAT)
+
+concurrency:
+  group: update-formulas
+  cancel-in-progress: true  # the updater is idempotent; always prefer the newer run
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    steps:
+      # UPDATE_FORMULAS_TOKEN (fine-grained PAT) is used so the PR this
+      # workflow opens actually triggers tests.yml. PRs created with the
+      # default GITHUB_TOKEN do not fire downstream workflows, so auto-merge
+      # would be ungated.
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Run updater
+        id: updater
+        env:
+          GH_TOKEN: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
+          UPSTREAM_REPO: atusy/kakehashi
+          DRY_RUN: ${{ inputs.dry_run }}    # stringified to "true"/"false"; empty on schedule
+        run: ruby scripts/update_formulas.rb
+
+      # Pre-flight validation using the same test-bot invocation tests.yml
+      # runs on PRs. Fail fast here so a malformed formula never reaches PR
+      # review. `brew style` called directly is stricter than test-bot on
+      # existing formulas (component ordering), so we stick with test-bot to
+      # avoid false-positive failures that PR CI would also report.
+      - name: Setup Homebrew
+        if: steps.updater.outputs.changed == 'true' && !inputs.dry_run
+        # Pinned to a commit SHA for supply-chain parity with tests.yml.
+        uses: Homebrew/actions/setup-homebrew@59e6b20d96df1a3c9ccb0aa402676e01a4cc6ff3
+
+      - name: brew test-bot --only-tap-syntax (pre-flight)
+        if: steps.updater.outputs.changed == 'true' && !inputs.dry_run
+        run: |
+          tap_dir="$(brew --repository)/Library/Taps/local/homebrew-tap"
+          mkdir -p "$tap_dir/Formula"
+          cp Formula/*.rb "$tap_dir/Formula/"
+          brew test-bot --only-tap-syntax local/homebrew-tap
+
+      - name: Append report to step summary
+        if: always() && steps.updater.outputs.report_markdown_path != ''
+        run: cat "${{ steps.updater.outputs.report_markdown_path }}" >> "$GITHUB_STEP_SUMMARY"
+
+      # One PR per run (branch name is stable, so subsequent runs update the
+      # open PR in place rather than opening a new one).
+      - name: Create Pull Request
+        id: cpr
+        if: steps.updater.outputs.changed == 'true' && !inputs.dry_run
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
+          branch: automation/update-formulas
+          base: main
+          title: ${{ steps.updater.outputs.pr_title }}
+          body-path: ${{ steps.updater.outputs.report_markdown_path }}
+          commit-message: ${{ steps.updater.outputs.pr_title }}
+          delete-branch: true
+
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
+        run: gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
