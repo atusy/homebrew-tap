@@ -5,3 +5,11 @@
 *.bottle.*.tar.gz
 *.bottle.json
 brew-test-bot.*
+
+# Ruby tooling (local bundler/vendored gems)
+vendor/
+.bundle/
+
+# Editor swap files
+*.swp
+*.swo
