@@ -1,5 +1,5 @@
 class Kakehashi < Formula
-  desc "LSP server using Tree-sitter for language-aware features"
+  desc "Language server bridging the gap between languages, editors, and tooling"
   homepage "https://github.com/atusy/kakehashi"
   version "0.5.0"
   license "MIT"
