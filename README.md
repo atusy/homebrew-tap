@@ -5,7 +5,6 @@ Personal Homebrew tap for [atusy](https://github.com/atusy)'s projects.
 ## Installation
 
 ```sh
-brew tap atusy/tap
 brew install atusy/tap/kakehashi
 ```
 
