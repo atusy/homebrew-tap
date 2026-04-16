@@ -1,7 +1,6 @@
 class Kakehashi < Formula
   desc "Language server bridging the gap between languages, editors, and tooling"
   homepage "https://github.com/atusy/kakehashi"
-  version "0.5.0"
   license "MIT"
 
   livecheck do
