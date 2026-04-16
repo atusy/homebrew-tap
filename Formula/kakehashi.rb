@@ -41,6 +41,8 @@ class Kakehashi < Formula
 
     require "json"
     schema = shell_output("#{bin}/kakehashi config schema")
-    JSON.parse(schema) # fails if the binary prints non-JSON garbage
+    parsed = JSON.parse(schema)
+    assert_kind_of Hash, parsed, "expected JSON object at root of config schema"
+    refute_empty parsed, "config schema should not be empty"
   end
 end
