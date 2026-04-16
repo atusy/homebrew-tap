@@ -13,3 +13,7 @@ vendor/
 # Editor swap files
 *.swp
 *.swo
+
+# Auto-update script artifacts
+update_report.md
+steps_output.txt

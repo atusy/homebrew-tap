@@ -1,0 +1,140 @@
+{
+  "": {
+    "version": "0.5.0",
+    "macos": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-aarch64-apple-darwin.tar.gz",
+        "sha256": "49f4c4039b8f95796e46d2d55e83c9ef79b65098cddc4970aa710fa7ecd20e91"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-x86_64-apple-darwin.tar.gz",
+        "sha256": "5b5f8c5c7612623163f10a8a9885ed21ab7f76a93adb9eea747e95f2709d0496"
+      }
+    },
+    "linux": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "616dc1256c7a1a28e695254efad316ac0dc9c89f9aedfafa6df5b23a56643f2f"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-x86_64-unknown-linux-gnu.tar.gz",
+        "sha256": "fcee5c6bba39946efab05a3ee08068544e716ed73c818044c659b37e131a215a"
+      }
+    }
+  },
+  "0.1": {
+    "version": "0.1.0",
+    "macos": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.1.0/kakehashi-v0.1.0-aarch64-apple-darwin.tar.gz",
+        "sha256": "731d223ecd5270e0c685dae6716e2e9068ceaea25fe7143cb061c6cb11e5daa3"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.1.0/kakehashi-v0.1.0-x86_64-apple-darwin.tar.gz",
+        "sha256": "06dc01fade0a811f96398be77c0795534759ead5d4ae9a334de54e82ac22e18c"
+      }
+    },
+    "linux": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.1.0/kakehashi-v0.1.0-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "11809bbbdb35299b41c85284f0597a70605b8320addc93f6aab30d16e2ba16be"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.1.0/kakehashi-v0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+        "sha256": "95d9d440dc3089c1ba9077825939f6b6dc839a5fad1f86de53d53f4c3a89d237"
+      }
+    }
+  },
+  "0.2": {
+    "version": "0.2.0",
+    "macos": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.2.0/kakehashi-v0.2.0-aarch64-apple-darwin.tar.gz",
+        "sha256": "a7d85eb1684414a44190d4c51aa63f9ca8f02a9e943ded7dcbcf818b5766314c"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.2.0/kakehashi-v0.2.0-x86_64-apple-darwin.tar.gz",
+        "sha256": "d430f0288902d0546a76d9718626fc173f8f712b027163206eac5ef6f7fb7839"
+      }
+    },
+    "linux": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.2.0/kakehashi-v0.2.0-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "1011c74a4224e44d8a8087c65824579989c0bf9e433c00cb8cb0df373fd019f2"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.2.0/kakehashi-v0.2.0-x86_64-unknown-linux-gnu.tar.gz",
+        "sha256": "655782edf1722a0b7fed8693bbec5db3f38d36f7ee9dc40aca13393eda7951c6"
+      }
+    }
+  },
+  "0.3": {
+    "version": "0.3.0",
+    "macos": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.3.0/kakehashi-v0.3.0-aarch64-apple-darwin.tar.gz",
+        "sha256": "b6e331fb19012e1f1dc9086f078a422a311df59920f827251db55ec4567c6574"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.3.0/kakehashi-v0.3.0-x86_64-apple-darwin.tar.gz",
+        "sha256": "35d9a4cc093a841821bbff60989d50c0602e3d2eeeecaf98136c6816bdb793a3"
+      }
+    },
+    "linux": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.3.0/kakehashi-v0.3.0-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "96007f27f15e065925035a92e21806ba9d79ba5ce1d774262a7ad40ce9f12982"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.3.0/kakehashi-v0.3.0-x86_64-unknown-linux-gnu.tar.gz",
+        "sha256": "a612a5c530e34adc542e2a769e1c25ea6821e60e8021fa2fc2dcb5f68f66d37a"
+      }
+    }
+  },
+  "0.4": {
+    "version": "0.4.1",
+    "macos": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-aarch64-apple-darwin.tar.gz",
+        "sha256": "9ef597c6ab16a17e8db142dad2a4b1ed315e32582277985de3f91e2b4c0612d9"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-x86_64-apple-darwin.tar.gz",
+        "sha256": "885c1795e1710433ba851514665764d0947fd4f466119859e32059eaa7a6b477"
+      }
+    },
+    "linux": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "9847bdd0beff3f64e986211bbdc170f2a4558de2cb2e29000c909d6cf2851c89"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-x86_64-unknown-linux-gnu.tar.gz",
+        "sha256": "0c54955d12c1678aaf358cc8b67bbdb762b72b12bd0f6269a69cf481a7b6bd1a"
+      }
+    }
+  },
+  "0.5": {
+    "version": "0.5.0",
+    "macos": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-aarch64-apple-darwin.tar.gz",
+        "sha256": "49f4c4039b8f95796e46d2d55e83c9ef79b65098cddc4970aa710fa7ecd20e91"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-x86_64-apple-darwin.tar.gz",
+        "sha256": "5b5f8c5c7612623163f10a8a9885ed21ab7f76a93adb9eea747e95f2709d0496"
+      }
+    },
+    "linux": {
+      "arm": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "616dc1256c7a1a28e695254efad316ac0dc9c89f9aedfafa6df5b23a56643f2f"
+      },
+      "intel": {
+        "url": "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-x86_64-unknown-linux-gnu.tar.gz",
+        "sha256": "fcee5c6bba39946efab05a3ee08068544e716ed73c818044c659b37e131a215a"
+      }
+    }
+  }
+}

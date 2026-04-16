@@ -1,31 +1,37 @@
+require "json"
+
 class KakehashiAT04 < Formula
   desc "Language server bridging the gap between languages, editors, and tooling"
   homepage "https://github.com/atusy/kakehashi"
   license "MIT"
 
+  keg_only :versioned_formula
+
+  versions = JSON.parse(File.read(File.join(__dir__, "versions.json")))
+  vkey = File.basename(__FILE__, ".rb").delete_prefix("kakehashi").delete_prefix("@")
+  vdata = versions.fetch(vkey)
+
   on_macos do
     on_arm do
-      url "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-aarch64-apple-darwin.tar.gz"
-      sha256 "9ef597c6ab16a17e8db142dad2a4b1ed315e32582277985de3f91e2b4c0612d9"
+      url vdata.dig("macos", "arm", "url")
+      sha256 vdata.dig("macos", "arm", "sha256")
     end
     on_intel do
-      url "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-x86_64-apple-darwin.tar.gz"
-      sha256 "885c1795e1710433ba851514665764d0947fd4f466119859e32059eaa7a6b477"
+      url vdata.dig("macos", "intel", "url")
+      sha256 vdata.dig("macos", "intel", "sha256")
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "9847bdd0beff3f64e986211bbdc170f2a4558de2cb2e29000c909d6cf2851c89"
+      url vdata.dig("linux", "arm", "url")
+      sha256 vdata.dig("linux", "arm", "sha256")
     end
     on_intel do
-      url "https://github.com/atusy/kakehashi/releases/download/v0.4.1/kakehashi-v0.4.1-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "0c54955d12c1678aaf358cc8b67bbdb762b72b12bd0f6269a69cf481a7b6bd1a"
+      url vdata.dig("linux", "intel", "url")
+      sha256 vdata.dig("linux", "intel", "sha256")
     end
   end
-
-  keg_only :versioned_formula
 
   def install
     bin.install "kakehashi"
