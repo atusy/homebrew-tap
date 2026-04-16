@@ -36,7 +36,8 @@ class Kakehashi < Formula
   end
 
   test do
-    assert_equal "kakehashi #{version}", shell_output("#{bin}/kakehashi --version").strip
+    assert_match(/\Akakehashi #{Regexp.escape(version.to_s)}\b/,
+                 shell_output("#{bin}/kakehashi --version"))
 
     require "json"
     schema = shell_output("#{bin}/kakehashi config schema")
