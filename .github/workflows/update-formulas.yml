@@ -9,16 +9,16 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Compute changes without creating a PR'
+        description: "Compute changes without creating a PR"
         type: boolean
         default: true
 
 permissions:
-  contents: read            # writes go through UPDATE_FORMULAS_TOKEN (PAT)
+  contents: read # writes go through UPDATE_FORMULAS_TOKEN (PAT)
 
 concurrency:
   group: update-formulas
-  cancel-in-progress: true  # the updater is idempotent; always prefer the newer run
+  cancel-in-progress: true # the updater is idempotent; always prefer the newer run
 
 jobs:
   update:
@@ -28,20 +28,20 @@ jobs:
       # workflow opens actually triggers tests.yml. PRs created with the
       # default GITHUB_TOKEN do not fire downstream workflows, so auto-merge
       # would be ungated.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           token: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
 
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@7372622e62b60b3cb750dcd2b9e32c247ffec26a # v1
         with:
-          ruby-version: '3.3'
+          ruby-version: "3.3"
 
       - name: Run updater
         id: updater
         env:
           GH_TOKEN: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
           UPSTREAM_REPO: atusy/kakehashi
-          DRY_RUN: ${{ inputs.dry_run }}    # stringified to "true"/"false"; empty on schedule
+          DRY_RUN: ${{ inputs.dry_run }} # stringified to "true"/"false"; empty on schedule
         run: ruby scripts/update_formulas.rb
 
       # Pre-flight validation using the same test-bot invocation tests.yml
@@ -52,7 +52,7 @@ jobs:
       - name: Setup Homebrew
         if: steps.updater.outputs.changed == 'true' && !inputs.dry_run
         # Pinned to a commit SHA for supply-chain parity with tests.yml.
-        uses: Homebrew/actions/setup-homebrew@59e6b20d96df1a3c9ccb0aa402676e01a4cc6ff3
+        uses: Homebrew/actions/setup-homebrew@98cfa07b984a61682e6cd3a0833fad2006cc84ba
 
       - name: brew test-bot --only-tap-syntax (pre-flight)
         if: steps.updater.outputs.changed == 'true' && !inputs.dry_run
@@ -71,7 +71,7 @@ jobs:
       - name: Create Pull Request
         id: cpr
         if: steps.updater.outputs.changed == 'true' && !inputs.dry_run
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
         with:
           token: ${{ secrets.UPDATE_FORMULAS_TOKEN }}
           branch: automation/update-formulas
