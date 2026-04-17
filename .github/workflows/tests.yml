@@ -46,8 +46,10 @@ jobs:
           echo "list=$list" >> "$GITHUB_OUTPUT"
 
       - name: Run brew test-bot (formula tests only)
+        env:
+          FORMULAE_LIST: ${{ steps.formulae.outputs.list }}
         run: |
-          for formula in ${{ steps.formulae.outputs.list }}; do
+          for formula in $FORMULAE_LIST; do
             echo "::group::Testing $formula"
             # Remove prior kegs so bin/kakehashi symlink doesn't collide.
             brew list --formula 2>/dev/null | grep kakehashi | while read -r keg; do
