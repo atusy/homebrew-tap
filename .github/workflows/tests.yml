@@ -42,10 +42,11 @@ jobs:
         run: |
           output="$(brew test-bot --only-formulae-detect 2>&1)"
           echo "$output"
-          list="$(echo "$output" | grep 'testing_formulae' | sed 's/.*testing_formulae *//')"
+          list="$(echo "$output" | grep 'testing_formulae' | sed 's/.*testing_formulae *//' | sed 's/(none)//')"
           echo "list=$list" >> "$GITHUB_OUTPUT"
 
       - name: Run brew test-bot (formula tests only)
+        if: steps.formulae.outputs.list != ''
         env:
           FORMULAE_LIST: ${{ steps.formulae.outputs.list }}
         run: |
