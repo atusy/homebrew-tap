@@ -3,6 +3,8 @@ class KakehashiAT05 < Formula
   homepage "https://github.com/atusy/kakehashi"
   license "MIT"
 
+  keg_only :versioned_formula
+
   on_macos do
     on_arm do
       url "https://github.com/atusy/kakehashi/releases/download/v0.5.0/kakehashi-v0.5.0-aarch64-apple-darwin.tar.gz"
@@ -24,8 +26,6 @@ class KakehashiAT05 < Formula
       sha256 "fcee5c6bba39946efab05a3ee08068544e716ed73c818044c659b37e131a215a"
     end
   end
-
-  keg_only :versioned_formula
 
   def install
     bin.install "kakehashi"
