@@ -74,22 +74,32 @@ def fetch_releases
   gh_api("/repos/#{UPSTREAM_REPO}/releases", paginate: true)
 end
 
+RELEASE_INFO_CACHE = {}
+
 def release_info(tag)
+  return RELEASE_INFO_CACHE[tag] if RELEASE_INFO_CACHE.key?(tag)
+
   rel = gh_api("/repos/#{UPSTREAM_REPO}/releases/tags/#{tag}")
   assets = rel.fetch("assets", [])
   out = {}
   TARGETS.each do |target|
     expected = "kakehashi-#{tag}-#{target}.tar.gz"
     asset = assets.find { |a| a["name"] == expected }
-    return nil unless asset
+    unless asset
+      RELEASE_INFO_CACHE[tag] = nil
+      return nil
+    end
     digest = asset["digest"]
-    return nil unless digest.is_a?(String) && digest.start_with?("sha256:")
+    unless digest.is_a?(String) && digest.start_with?("sha256:")
+      RELEASE_INFO_CACHE[tag] = nil
+      return nil
+    end
     out[target] = {
       url: asset.fetch("browser_download_url"),
       sha256: digest.delete_prefix("sha256:"),
     }
   end
-  out
+  RELEASE_INFO_CACHE[tag] = out
 end
 
 # --- JSON building -----------------------------------------------------------
@@ -148,10 +158,10 @@ def ensure_versioned_formula!(major, minor)
   template = Dir["Formula/kakehashi@*.rb"]
     .max_by { |p| Gem::Version.new(File.basename(p, ".rb").sub(/^kakehashi@/, "")) }
   src = File.read(template || "Formula/kakehashi.rb")
-  src = src.sub(/\Aclass \w+ < Formula/, "class #{klass} < Formula")
+  src = src.sub(/^class \w+ < Formula/, "class #{klass} < Formula")
   src = src.sub(/^\s*livecheck do\n.*?\n\s*end\n/m, "") if src.match?(/livecheck do/)
   unless src.include?("keg_only :versioned_formula")
-    src = src.sub(/(  license "MIT"\n)/, "\\1\n  keg_only :versioned_formula\n")
+    src = src.sub(/(  license [^\n]+\n)/, "\\1\n  keg_only :versioned_formula\n")
   end
   File.write(path, src) unless DRY_RUN
   path
